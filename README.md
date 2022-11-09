@@ -1,7 +1,13 @@
 # Web Component Library
 
 Contains
-* Vue
+- Quasar
+- Vue 3 (Options API)
+- Vue Router
+- TypeScript
+- ESLint (Standard config)
+- SCSS
+- Storybook
 
 ## Install the dependencies
 ```bash
