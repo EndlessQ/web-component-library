@@ -101,9 +101,8 @@ export default defineComponent({
 			return chars;
 		},
 		render (prev: string | null): void {
-			const textCondition = prev && true; // Is the text still the same size.
 			const text = this.getTextContentWithImageAtSize(
-				textCondition ? prev : '',
+				prev || '',
 				this.$props.words as string[],
 				this.$props.letters
 			);
