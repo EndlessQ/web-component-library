@@ -7,6 +7,7 @@ Copyright 2022 DigiSomni LLC.
 
 <script lang="ts">
 import { defineComponent } from 'vue';
+import PopLink from './PopLink.vue';
 
 export default defineComponent({
 	name: 'NewsCard',
@@ -16,12 +17,20 @@ export default defineComponent({
 		date: { type: String, required: false },
 		image: { type: String, required: false },
 		link: { type: String, required: false }
+	},
+	components: {
+		PopLink
+	},
+	data () {
+		return {
+			linkPop: false
+		};
 	}
 });
 </script>
 
 <template>
-	<div class="newsCard">
+	<div class="newsCard" @mouseenter="linkPop = true">
 		<div class="inner">
 			<div class="image">
 				<img v-if="image" :src="image" draggable="false" loading="lazy" alt="">
@@ -36,20 +45,13 @@ export default defineComponent({
 				<p>
 					<slot></slot>
 				</p>
-				<a
+				<PopLink
 					v-if="link"
-					:href="link"
-					target="_blank"
+					:link="link"
+					title="More information"
 					class="link"
-				>
-					<q-btn
-						round
-						fab-mini
-						color="$color_lightpink"
-						icon="launch"
-						title="More information"
-					/>
-				</a>
+					v-model:pop="linkPop"
+				/>
 			</div>
 		</div>
 	</div>
@@ -141,27 +143,10 @@ export default defineComponent({
 			}
 
 			> .link {
-				all: unset;
 				position: absolute;
 				z-index: 2;
 				top: -20px;
 				right: 20px;
-				display: flex;
-				justify-content: center;
-				align-items: center;
-				background-color: $color_lightpink;
-				border-radius: 50%;
-
-				&::before {
-					content: "";
-					position: absolute;
-					display: block;
-					width: 0%;
-					height: 0%;
-					background-color: $color_lightpink;
-					border-radius: 50%;
-					opacity: 0.5;
-				}
 			}
 		}
 	}
@@ -175,23 +160,7 @@ export default defineComponent({
 
 		> .inner > .content {
 			transform: translate(7px, 15px);
-
-			> .link::before {
-				animation: newsCardLinkPop $anim_duration_medium linear forwards;
-			}
 		}
-	}
-}
-@keyframes newsCardLinkPop {
-	0%   {
-		width: 50%;
-		height: 50%;
-		opacity: 0.7;
-	}
-	100% {
-		width: 160%;
-		height: 160%;
-		opacity: 0;
 	}
 }
 </style>
