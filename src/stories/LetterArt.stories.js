@@ -13,7 +13,15 @@ const Template = (args) => ({
 	setup () {
 		return { ...args };
 	},
-	template: '<LetterArt :color="color" :text="text" :words="words" />'
+	template: `
+		<LetterArt
+			:text="text"
+			:image="image"
+			:words="words"
+			:letters="letters"
+			:transition="transition"
+		/>
+	`
 });
 
 const TemplateGradient = (args) => ({
@@ -24,6 +32,7 @@ const TemplateGradient = (args) => ({
 	template: `
 		<LetterArt
 			:text="text"
+			:image="image"
 			:words="words"
 			:letters="letters"
 			:transition="transition"
@@ -48,6 +57,14 @@ Vircadia.args = {
 export const Error404 = Template.bind({});
 Error404.args = {
 	text: '404',
+	words: ['vircadia'],
+	letters: '0404040404',
+	transition: false
+};
+
+export const LogoImage = Template.bind({});
+LogoImage.args = {
+	image: 'https://fonts.gstatic.com/s/i/short-term/release/materialsymbolsoutlined/favorite/default/48px.svg',
 	words: ['vircadia'],
 	letters: '0404040404',
 	transition: false

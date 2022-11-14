@@ -14,6 +14,7 @@ export default defineComponent({
 	name: 'LetterArt',
 	props: {
 		text: { type: String, required: false, default: 'hello' },
+		image: { type: String, required: false },
 		words: { type: Array, required: false, default: () => { return [] as string[]; } },
 		letters: { type: String, required: false, default: '0101010101' },
 		transition: { type: Boolean, required: false }
@@ -21,11 +22,11 @@ export default defineComponent({
 	data () {
 		return {
 			charWidth: 15,
-			charHeight: 20,
+			charHeight: this.$props.image ? 40 : 20,
 			updateInterval: 120,
 			likelihoodOfReplacingWord: 0.05,
 			likelihoodOfChangingExistingText: 0.1,
-			image: {} as HTMLImageElement,
+			imageElement: {} as HTMLImageElement,
 			inputContent: '',
 			generatedContent: '',
 			outputContent: '',
@@ -43,10 +44,10 @@ export default defineComponent({
 	},
 	methods: {
 		initImage (): void {
-			this.image = new Image();
-			this.image.onload = () => this.render(null);
-			this.image.src = this.createImageURL();
-			this.image.crossOrigin = 'anonymous';
+			this.imageElement = new Image();
+			this.imageElement.onload = () => this.render(null);
+			this.imageElement.src = this.image ?? this.createImageURL();
+			this.imageElement.crossOrigin = 'anonymous';
 		},
 		randomChoice (x: string | string[]): string {
 			return x[Math.floor(Math.random() * x.length)];
@@ -70,7 +71,7 @@ export default defineComponent({
 			const context = canvas.getContext('2d') as CanvasRenderingContext2D;
 			canvas.width = Math.floor(this.charWidth * this.inputContent.length);
 			canvas.height = Math.floor(this.charHeight);
-			context.drawImage(this.image, 0, 0, canvas.width, canvas.height);
+			context.drawImage(this.imageElement, 0, 0, canvas.width, canvas.height);
 			const data = context.getImageData(0, 0, canvas.width, canvas.height);
 			let chars = '';
 			let startOfFilledInSequence = 0 as number | null;
