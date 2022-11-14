@@ -25,6 +25,8 @@ const TemplateGradient = (args) => ({
 		<LetterArt
 			:text="text"
 			:words="words"
+			:letters="letters"
+			:transition="transition"
 			style="
 				color: #0000;
 				background-image: linear-gradient(90deg, #0c71c3, #8300e9, #0c71c3);
@@ -39,11 +41,14 @@ const TemplateGradient = (args) => ({
 export const Vircadia = TemplateGradient.bind({});
 Vircadia.args = {
 	text: 'Vircadia',
-	words: ['vircadia']
+	words: ['vircadia'],
+	transition: true
 };
 
 export const Error404 = Template.bind({});
 Error404.args = {
 	text: '404',
-	words: ['vircadia']
+	words: ['vircadia'],
+	letters: '0404040404',
+	transition: false
 };
