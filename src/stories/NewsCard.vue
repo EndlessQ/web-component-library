@@ -11,11 +11,11 @@ import { defineComponent } from 'vue';
 export default defineComponent({
 	name: 'NewsCard',
 	props: {
-		title: String,
-		author: String,
-		date: String,
-		image: String,
-		link: String
+		title: { type: String, required: false },
+		author: { type: String, required: false },
+		date: { type: String, required: false },
+		image: { type: String, required: false },
+		link: { type: String, required: false }
 	}
 });
 </script>
